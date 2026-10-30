@@ -47,14 +47,16 @@ This project delivers a **production-minded research agent** designed to meet ri
 
 ## Recorded Demo Video Presentation
 
-A 1080p high-definition demo video has been recorded and is bundled directly in this repository:
-- **Direct Video File**: [`demo_video/nexus_research_agent_demo.webm`](file:///C:/Users/Navya%20Rangwani/.gemini/antigravity/scratch/production-ai-research-agent/demo_video/nexus_research_agent_demo.webm) (22.3 MB)
-- **Interactive In-Browser Player**: Double-click [`demo_video/watch_demo.html`](file:///C:/Users/Navya%20Rangwani/.gemini/antigravity/scratch/production-ai-research-agent/demo_video/watch_demo.html) to watch immediately with styled dark-mode controls.
-- **Demo Script & Guide**: See [`DEMO_GUIDE.md`](file:///C:/Users/Navya%20Rangwani/.gemini/antigravity/scratch/production-ai-research-agent/DEMO_GUIDE.md) for full timestamp breakdown and spoken transcript.
+A 1080p high-definition video walkthrough is available on Google Drive:
+- 🎬 **Watch Demo Video (Google Drive)**: [Nexus AI Research Agent - Full Demo Walkthrough](https://drive.google.com/file/d/17a8rnNIueVt4EJwHUpFUslNZuFBRrKLL/view?usp=drive_link)
+- **Interactive Local Player**: Double-click `demo_video/watch_demo.html` to watch locally with dark-mode controls.
+- **Demo Script & Guide**: See [`DEMO_GUIDE.md`](DEMO_GUIDE.md) for full timestamp breakdown and spoken transcript.
 
 > **Note on Audio**: The demo video is configured with **no voice audio**, featuring a **synchronized side explanation dossier** directly on screen explaining each step in depth (Architecture, Real-Time DAG, Noise Filtering, Interactive Citations, Hallucination Judge, Non-Agentic Baseline Comparison, Chaos Fault Sandbox, and the 5/5 Automated Benchmark Evals).
 
 ---
+
+## Quick Start Guide
 
 ### Option 1: 1-Click Launch (Windows)
 Double-click `start.bat` in the root folder, or run in PowerShell:

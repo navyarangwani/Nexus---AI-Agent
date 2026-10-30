@@ -1,8 +1,8 @@
 # 3-to-5 Minute Demo Video Script & Walkthrough Guide
 
-> **Pre-Recorded Demo Ready**: A full, synchronized 1080p demo video with side-by-side in-depth explanatory dossier (no audio required) has been recorded and is ready in:
-> - Video File: `demo_video/nexus_research_agent_demo.webm`
-> - Interactive Player: Open `demo_video/watch_demo.html` directly in any web browser.
+> **Pre-Recorded Demo Ready**: A full, synchronized 1080p demo video with side-by-side in-depth explanatory dossier (no audio required) is ready to watch:
+> - 🎬 **Google Drive Video**: [Nexus AI Research Agent - Full Demo Walkthrough](https://drive.google.com/file/d/17a8rnNIueVt4EJwHUpFUslNZuFBRrKLL/view?usp=drive_link)
+> - **Interactive Local Player**: Open `demo_video/watch_demo.html` directly in any web browser.
 
 Use this script to review the recorded walkthrough or to present the project live. The video covers the **system architecture**, **one happy path**, **one failure/edge case**, and the **evaluation harness**.
 
