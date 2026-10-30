@@ -50,7 +50,7 @@ This project delivers a **production-minded research agent** designed to meet ri
 A 1080p high-definition video walkthrough is available on Google Drive:
 - 🎬 **Watch Demo Video (Google Drive)**: [Nexus AI Research Agent - Full Demo Walkthrough](https://drive.google.com/file/d/17a8rnNIueVt4EJwHUpFUslNZuFBRrKLL/view?usp=drive_link)
 - **Interactive Local Player**: Double-click `demo_video/watch_demo.html` to watch locally with dark-mode controls.
-- **Demo Script & Guide**: See [`DEMO_GUIDE.md`](DEMO_GUIDE.md) for full timestamp breakdown and spoken transcript.
+
 
 > **Note on Audio**: The demo video is configured with **no voice audio**, featuring a **synchronized side explanation dossier** directly on screen explaining each step in depth (Architecture, Real-Time DAG, Noise Filtering, Interactive Citations, Hallucination Judge, Non-Agentic Baseline Comparison, Chaos Fault Sandbox, and the 5/5 Automated Benchmark Evals).
 
