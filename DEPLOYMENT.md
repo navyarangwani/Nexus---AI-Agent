@@ -1,15 +1,17 @@
 # Live Cloud Deployment Guide
 
-This project is fully dockerized and pre-configured for **1-click cloud deployment** on all major cloud providers.
+This project is fully dockerized and deployed live on Render:
+- **Live Production URL**: 🚀 **[https://nexus-ai-agent-x3wj.onrender.com/](https://nexus-ai-agent-x3wj.onrender.com/)**
+- **Health Check**: `https://nexus-ai-agent-x3wj.onrender.com/api/health`
 
 ---
 
-## ⚡ Instant Live URL (Active Now)
+## ⚡ Live Production URL (Render)
 
-For immediate testing, demonstrations, or sharing with reviewers right away:
-- **Public URL**: `https://tidy-ideas-sip.loca.lt`
-- **Tunnel Password / IP**: `49.43.25.243` *(If localtunnel shows a friendly verification screen on first visit, simply enter this IP and click Submit)*.
-- **Health Check**: `https://tidy-ideas-sip.loca.lt/api/health`
+The studio is hosted online and accessible to anyone without local installation:
+- **Web App**: `https://nexus-ai-agent-x3wj.onrender.com/`
+- Built directly from the `main` branch of `https://github.com/navyarangwani/Nexus---AI-Agent`.
+- Automatically deploys on any new commit pushed to `main`.
 
 ---
 

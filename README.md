@@ -1,5 +1,6 @@
 # Production AI Research Agent Studio
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Render-46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)](https://nexus-ai-agent-x3wj.onrender.com/)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688.svg)](https://fastapi.tiangolo.com/)
 [![React 19](https://img.shields.io/badge/React-19.0-61dafb.svg)](https://react.dev/)
@@ -11,9 +12,21 @@
 
 ---
 
+## 🌐 Live Web Demo & Video Presentation
+
+| Resource | Link | Description |
+| :--- | :--- | :--- |
+| **Live Web App** | 🚀 **[nexus-ai-agent-x3wj.onrender.com](https://nexus-ai-agent-x3wj.onrender.com/)** | Fully interactive production studio running live on Render. |
+| **Demo Video** | 🎬 **[Google Drive Video Walkthrough](https://drive.google.com/file/d/17a8rnNIueVt4EJwHUpFUslNZuFBRrKLL/view?usp=drive_link)** | High-definition walkthrough with synchronized side explanation dossier. |
+| **Local Player** | 💻 `demo_video/watch_demo.html` | In-browser player bundled in this repository. |
+
+> **Zero Setup Note**: You can open the live link above to run queries, test the fault sandbox, and execute the 5-case benchmark evaluation suite right from your browser.
+
+---
+
 ## Table of Contents
+- [Live Web Demo & Video Presentation](#-live-web-demo--video-presentation)
 - [Executive Overview](#executive-overview)
-- [Recorded Demo Video Presentation](#recorded-demo-video-presentation)
 - [Quick Start Guide](#quick-start-guide)
 - [Key Features & What Distinguishes This Submission](#key-features--what-distinguishes-this-submission)
 - [System Architecture](#system-architecture)
