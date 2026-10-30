@@ -1,4 +1,5 @@
 import asyncio
+import json
 import re
 import warnings
 from typing import List
@@ -37,26 +38,67 @@ class WebSearchTool(BaseTool):
 
             raw_results = await asyncio.to_thread(_search)
             if raw_results and len(raw_results) > 0:
-                # Validate that search results actually relate to the technical/domain query
-                # rather than generic noise like mobile phone comparison
-                core_terms = set(re.findall(r"[a-z0-9]{4,}", clean_q)) - {"compare", "different", "best", "approaches"}
-                matched_live = []
                 for r in raw_results:
                     title = r.get("title", "Untitled")
                     href = r.get("href") or r.get("link", "https://web.archive.org")
                     body = r.get("body") or r.get("snippet", "")
-                    combined = f"{title} {body}".lower()
-                    if body and any(t in combined for t in core_terms):
-                        matched_live.append(RawSourceItem(
+                    if body and len(body) > 20:
+                        results.append(RawSourceItem(
                             title=title,
                             url=href,
                             content=body,
                             source_type="web_live"
                         ))
-                if len(matched_live) >= 2:
-                    return matched_live
+                if len(results) >= 2:
+                    return results
         except Exception:
             pass
+
+        # Try Wikipedia Search API if DDGS returned fewer than 2 items
+        if len(results) < 2:
+            try:
+                import urllib.request
+                import urllib.parse
+                clean_term = re.sub(r"^(who is (the)?|what is (the)?|tell me about|explain|search for|find)\s+", "", clean_q, flags=re.I).strip()
+                search_term = clean_term if len(clean_term) >= 3 else clean_q
+                wiki_search_url = f"https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch={urllib.parse.quote(search_term)}&format=json&utf8="
+                req = urllib.request.Request(wiki_search_url, headers={"User-Agent": "NexusResearchAgent/1.0 (navya@agent.dev)"})
+                with urllib.request.urlopen(req, timeout=3.5) as resp:
+                    if resp.status == 200:
+                        wdata = json.loads(resp.read().decode())
+                        search_items = wdata.get("query", {}).get("search", [])
+                        for item in search_items[:3]:
+                            raw_snip = re.sub(r"<.*?>", "", item.get("snippet", ""))
+                            raw_snip = raw_snip.replace("&quot;", '"').replace("&#039;", "'").replace("&amp;", "&")
+                            page_title = item.get("title", "Encyclopedia Reference")
+
+                            summary_text = raw_snip
+                            try:
+                                sum_url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{urllib.parse.quote(page_title)}"
+                                sum_req = urllib.request.Request(sum_url, headers={"User-Agent": "NexusResearchAgent/1.0"})
+                                with urllib.request.urlopen(sum_req, timeout=2.0) as sresp:
+                                    if sresp.status == 200:
+                                        sdata = json.loads(sresp.read().decode())
+                                        if sdata.get("extract"):
+                                            summary_text = sdata.get("extract")
+                            except Exception:
+                                pass
+
+                            if summary_text and len(summary_text) > 30:
+                                results.append(RawSourceItem(
+                                    title=f"{page_title} (Wikipedia)",
+                                    url=f"https://en.wikipedia.org/wiki/{urllib.parse.quote(page_title)}",
+                                    content=summary_text,
+                                    source_type="encyclopedic_reference"
+                                ))
+                if len(results) >= 2:
+                    return results
+            except Exception:
+                pass
+
+        # If live search yielded results, return them immediately
+        if results:
+            return results
 
         # High-Fidelity Knowledge Base Fallback based on query keywords
         if any(term in clean_q for term in ["memory", "support agent", "short-term", "long-term", "conversation buffer"]):
@@ -159,6 +201,8 @@ class WebSearchTool(BaseTool):
                 )
             ]
         else:
+            if results:
+                return results
             # General fallback search result based on query keywords
             results = [
                 RawSourceItem(

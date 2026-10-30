@@ -42,9 +42,9 @@ class HallucinationJudge:
                             claim_id=i + 1,
                             claim_text=f.finding,
                             cited_source_ids=[],
-                            verified=True,
-                            verification_reason="Security refusal verified. Adversarial prompt injection successfully quarantined without data leakage.",
-                            verdict="Verified"
+                            is_grounded=True,
+                            grounding_confidence=1.0,
+                            verification_notes="Security refusal verified. Adversarial prompt injection successfully quarantined without data leakage."
                         )
                         for i, f in enumerate(answer.key_findings)
                     ],

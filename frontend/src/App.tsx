@@ -27,10 +27,29 @@ export function App() {
   const [activeInspectNode, setActiveInspectNode] = useState<string>('plan');
   const [highlightedSourceId, setHighlightedSourceId] = useState<number | null>(null);
 
-  // Settings & Configuration
-  const [provider, setProvider] = useState<ProviderType>('mock');
-  const [apiKey, setApiKey] = useState('');
-  const [modelName, setModelName] = useState('simulator-v1');
+  // Settings & Configuration (persisted to localStorage)
+  const [provider, setProviderState] = useState<ProviderType>(() => {
+    return (localStorage.getItem('nexus_provider') as ProviderType) || 'mock';
+  });
+  const [apiKey, setApiKeyState] = useState(() => {
+    return localStorage.getItem('nexus_api_key') || '';
+  });
+  const [modelName, setModelNameState] = useState(() => {
+    return localStorage.getItem('nexus_model') || 'simulator-v1';
+  });
+
+  const setProvider = (p: ProviderType) => {
+    setProviderState(p);
+    localStorage.setItem('nexus_provider', p);
+  };
+  const setApiKey = (k: string) => {
+    setApiKeyState(k);
+    localStorage.setItem('nexus_api_key', k);
+  };
+  const setModelName = (m: string) => {
+    setModelNameState(m);
+    localStorage.setItem('nexus_model', m);
+  };
   const [includeBaseline, setIncludeBaseline] = useState(true);
 
   // Chaos Injection state

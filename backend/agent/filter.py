@@ -109,6 +109,11 @@ class InformationFilter:
 
                 # 4. Relevance scoring
                 relevance = self._compute_relevance(query, content, item.title)
+                if item.source_type in ["encyclopedic_reference", "web_live"]:
+                    relevance = min(0.99, relevance + 0.15)
+                elif "specs.engineering.dev" in item.url:
+                    relevance = max(0.36, relevance - 0.20)
+
                 if not is_injection and not discard_reason:
                     if relevance < self.min_relevance_threshold:
                         discard_reason = f"Discarded: Low relevance score ({relevance} < threshold {self.min_relevance_threshold})."

@@ -45,8 +45,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
       id: 'gemini',
       name: 'Google Gemini',
       badge: 'Official API',
-      desc: 'Connect to Gemini 2.5 Flash or Gemini 1.5 Pro via Google AI Studio.',
-      defaultModel: 'gemini-2.5-flash',
+      desc: 'Connect to Gemini 2.0 Flash or Gemini 1.5 Pro via Google AI Studio.',
+      defaultModel: 'gemini-2.0-flash',
       keyLabel: 'GEMINI_API_KEY',
     },
     {

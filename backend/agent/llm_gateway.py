@@ -32,17 +32,26 @@ class LLMGateway:
         try:
             from google import genai
             client = genai.Client(api_key=self.api_key)
-            model = self.model_name or "gemini-2.5-flash"
+            target_model = self.model_name if (self.model_name and "simulator" not in self.model_name and "2.5" not in self.model_name) else "gemini-2.0-flash"
             config: Dict[str, Any] = {"system_instruction": system_prompt}
             if json_mode:
                 config["response_mime_type"] = "application/json"
 
-            response = client.models.generate_content(
-                model=model,
-                contents=user_prompt,
-                config=config
-            )
-            return response.text or ""
+            try:
+                response = client.models.generate_content(
+                    model=target_model,
+                    contents=user_prompt,
+                    config=config
+                )
+                return response.text or ""
+            except Exception:
+                # Fallback to gemini-1.5-flash
+                response = client.models.generate_content(
+                    model="gemini-1.5-flash",
+                    contents=user_prompt,
+                    config=config
+                )
+                return response.text or ""
         except Exception as e:
             # If live call fails, gracefully return simulated response and append notice
             sim = self._simulate_llm_response(system_prompt, user_prompt, json_mode)
@@ -201,24 +210,37 @@ class LLMGateway:
                     ]
                 })
             else:
+                # Extract actual user question from prompt wrapper
+                extracted_q = user_prompt
+                if "'" in user_prompt:
+                    parts = user_prompt.split("'", 2)
+                    if len(parts) >= 2 and parts[1].strip():
+                        extracted_q = parts[1].strip()
+                elif "\n" in user_prompt:
+                    extracted_q = user_prompt.split("\n")[-1].strip()
+
+                clean_user_q = re.sub(r"^Create an orchestration.*?:", "", extracted_q, flags=re.I).strip(" '\"\n\r")
+                if not clean_user_q:
+                    clean_user_q = "research topic"
+
                 return json.dumps({
-                    "query_intent": f"Systematic investigation of: {user_prompt[:80]}",
-                    "clarified_objective": "Gather factual evidence, evaluate tradeoffs, and synthesize a structured grounded report.",
+                    "query_intent": f"Systematic investigation of: {clean_user_q[:120]}",
+                    "clarified_objective": f"Gather factual evidence, evaluate tradeoffs, and synthesize a structured grounded report on '{clean_user_q}'.",
                     "reasoning": "Conduct multi-source validation to minimize hallucination risk.",
                     "steps": [
                         {
                             "step_id": 1,
-                            "title": "Perform targeted domain search",
-                            "rationale": "Acquire primary evidence and benchmark data.",
+                            "title": f"Perform targeted web search for '{clean_user_q[:40]}'",
+                            "rationale": "Acquire primary evidence and live industry data.",
                             "tool_name": "web_search",
-                            "tool_query": user_prompt[:60]
+                            "tool_query": clean_user_q
                         },
                         {
                             "step_id": 2,
-                            "title": "Verify technical specifications and trade-offs",
-                            "rationale": "Cross-reference technical constraints and reliability considerations.",
+                            "title": "Verify technical specifications and documentation",
+                            "rationale": "Cross-reference technical constraints, official specs, and benchmarks.",
                             "tool_name": "tech_docs",
-                            "tool_query": f"specifications analysis {user_prompt[:40]}"
+                            "tool_query": f"{clean_user_q} specifications analysis"
                         }
                     ]
                 })
