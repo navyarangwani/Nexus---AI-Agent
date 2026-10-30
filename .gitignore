@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+.venv/
+env/
+venv/
+ENV/
+
+# Environment secrets
+.env
+.env.local
+.env.*.local
+
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+.npm
+.eslintcache
+
+# Playwright / Testing artifacts
+test-results/
+playwright-report/
+blob-report/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Keep demo video files in demo_video/ except temporary screen recordings
+demo_video/page@*.webm
